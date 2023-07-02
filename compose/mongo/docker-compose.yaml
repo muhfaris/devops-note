@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+  pmongo:
+    container_name: pmongo
+    image: mongo:latest
+    volumes:
+      - ./scripts/rs-init.sh:/scripts/rs-init.sh
+      - ./scripts/init.js:/scripts/init.js
+      - mongo_data:/data/db
+    networks:
+      - mongo-net
+    ports:
+      - 27017:27017
+    depends_on:
+      - smongo
+    links:
+      - smongo
+    restart: always
+    entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs"]
+  smongo:
+    container_name: smongo
+    image: mongo:latest
+    networks:
+      - mongo-net
+    restart: always
+    entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs"]
+volumes:
+  mongo_data:
+networks:
+  mongo-net:
+    driver: bridge
