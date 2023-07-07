@@ -10,7 +10,7 @@ This script is used to deploy a MongoDB cluster with support for high availabili
 
 ## Usage
 
-1. Download the `deploy_mongodb.sh` script from this repository.
+1. Download the `mongo.sh` script from this repository.
 
 2. Make the script executable:
 
@@ -27,6 +27,7 @@ This script is used to deploy a MongoDB cluster with support for high availabili
 - -n, --network: Docker network name for the MongoDB cluster.
 - -p, --primary: Name for the MongoDB primary container (optional).
 - -s, --secondary: Name prefix for the MongoDB secondary containers (optional).
+- -r, --run-script: Initialize replicaset script (required, first time setup)
 
 Note: If you only want to create secondary nodes without a primary node, omit the -p or --primary argument.
 
@@ -53,6 +54,12 @@ Note: If you only want to create secondary nodes without a primary node, omit th
 
 ```bash
 ./deploy_mongodb.sh -n mongo-cluster -p mongo1
+```
+
+- for connection string
+
+```
+mongodb://admin:admin@localhost:27017/loyalty-db?authMechanism=DEFAULT&authSource=admin&replicaSet=dbrs&readPreference=secondaryPreferred
 ```
 
 ## Customization

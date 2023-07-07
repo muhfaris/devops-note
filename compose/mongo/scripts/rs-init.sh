@@ -26,4 +26,4 @@ echo "****** Waiting for ${DELAY} seconds for replicaset configuration to be app
 
 sleep $DELAY
 
-mongosh < /scripts/init.js
+mongosh --eval 'use admin' ./scripts/init.js
